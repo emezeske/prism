@@ -28,12 +28,7 @@
     :else (throw (Exception. "Platform not yet supported"))))
 
 (defmacro case-platform [& cases]
-  (let [case-map (into {} (map vec (partition 2 cases)))]
-    (if (contains? case-map platform)
-      (platform case-map)
-      (if (odd? (count cases))
-        (last cases)
-        (throw (java.lang.IllegalArgumentException. "No matching clause"))))))
+  `(case platform ~@cases))
 
 (defmacro if-jvm
   ([then]
